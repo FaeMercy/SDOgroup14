@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-deployment
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: proxy } }
+  template:
+    metadata: { labels: { app: proxy } }
+    spec:
+      containers:
+        - name: proxy
+          image: nginx:latest
+          ports: [{ containerPort: 80 }, { containerPort: 443 }]
+          volumeMounts:
+            - name: proxy-conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: tls-cert
+              mountPath: /etc/ssl/certs
+            - name: tls-key
+              mountPath: /etc/ssl/private
+      volumes:
+        - name: proxy-conf
+          configMap:
+            name: proxy-config
+            items: [{ key: nginx.conf, path: nginx.conf }]
+        - name: tls-cert
+          secret:
+            secretName: proxy-tls
+            items: [{ key: localhost.crt, path: localhost.crt }]
+        - name: tls-key
+          secret:
+            secretName: proxy-tls
+            items: [{ key: localhost.key, path: localhost.key }]
