@@ -19,9 +19,9 @@ services:
     context: ./server
     dockerfile: Dockerfile
     environment:
-      - DB_HOST: mongo
-      - DB_PORT: 27017
-      - DB_Name: MERN_Social
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_Name=MERN_Social
     ports:
       - "8080:8080"
     volumes:
@@ -36,5 +36,5 @@ services:
     networks:
       - sdo-network14
 networks:
-sdo-network14
+  sdo-network14:
 
