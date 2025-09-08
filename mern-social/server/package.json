@@ -1,6 +1,7 @@
 {
   "name": "mern-social",
   "version": "2.0.0",
+  "type": "module",
   "description": "A MERN stack based social media application",
   "author": "Shama Hoque",
   "license": "MIT",
