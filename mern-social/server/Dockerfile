@@ -1,8 +1,9 @@
 FROM node:16-alpine
 MAINTAINER group14@griffith.edu.au1
 WORKDIR /usr/src/app
-COPY package.json ./
+COPY ./mern-social/server/package.json .
 RUN npm install
-COPY . .
-EXPOSE 3000
+COPY ./mern-social/server/ . .
+COPY ./mern-social/config/ /usr/src/config/ 
+EXPOSE 8800
 CMD ["node", "server.js"]
